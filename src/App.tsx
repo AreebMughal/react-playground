@@ -8,9 +8,9 @@ import Button from './components/buttons/button.component';
 function App() {
   return (
     <div>
-      {/* <Form/> */}
-
-      <UnControlledForm />
+      <Form/>
+{/* 
+      <UnControlledForm /> */}
     </div>
   );
 }

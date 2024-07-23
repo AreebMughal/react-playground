@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Multiselect from "multiselect-react-dropdown";
 
-const UnControlledForm = () => {
+export default function UnControlledForm(){
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const optionRef1 = useRef<HTMLInputElement>(null);
@@ -136,5 +136,3 @@ const UnControlledForm = () => {
     </div>
   );
 };
-
-export default UnControlledForm;
