@@ -1,17 +1,23 @@
 import './App.css';
-import Form from './components/forms/form.component';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ControlledForm from './pages/controlled-form.page';
 import UnControlledForm from './pages/Uncontrolled-form.page';
-import Button from './components/buttons/button.component';
+import Navbar from './components/navbar/navbar.component';
+import Home from './pages/home.page';
 
-// import ControlledForm from './pages/controlled-form/controlled-form.page';
 
 function App() {
   return (
-    <div>
-      <Form/>
-{/* 
-      <UnControlledForm /> */}
-    </div>
+    <>
+      <BrowserRouter>
+      <Navbar />
+        <Routes>
+          <Route path="/controlled-form" element={<ControlledForm />} />
+          <Route path="/uncontrolled-form" element={<UnControlledForm />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
