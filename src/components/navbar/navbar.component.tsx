@@ -7,6 +7,8 @@ const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Controlled', href: '/controlled-form', current: false },
   { name: 'Uncontrolled', href: '/uncontrolled-form', current: false },
+  { name: 'formik-form', href: '/formik-form', current: false },
+  { name: 'formik UnControlled', href: '/formik-uncontrolled', current: false },
 ]
 
 function classNames(...classes: any[]) {
