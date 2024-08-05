@@ -30,7 +30,27 @@ const HookUncontrolled: React.FC = () => {
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
+  
+  useEffect(() => {
+    
+    if (firstNameRef.current) {
+      firstNameRef.current.value = ''; 
+    }
+    if (emailRef.current){
+      emailRef.current.value = '';
+    };
+    if (maleGenderRef.current){
+      maleGenderRef.current.checked = false;
+    }
+    if (femaleGenderRef.current){
+      femaleGenderRef.current.checked = false;
+    };
+    if (termsRef.current){
+      termsRef.current.checked = false;
+    }
+    setSelectedOptions([]);
+  }, [errors]);
+  
   useEffect(() => {
     // Perform validation when the component mounts
     validateForm();
