@@ -6,7 +6,8 @@ import Home from './pages/home.page';
 import FormikForm from './pages/formik-form.page';
 import UncontrolledFormikForm from './pages/formik-uncontrolled.page';
 import UnControlledForm from './pages/Uncontrolled-form.page';
-
+import HookForm from './pages/hookForm';
+import HookUncontrolled from "./pages/hookForm-Uncontrolled";
 function App() {
   return (
     <>
@@ -17,9 +18,15 @@ function App() {
           <Route path="/Uncontrolled-form" element={<UnControlledForm />} />
           <Route path="/formik-form" element={<FormikForm />} />
           <Route path="/formik-uncontrolled" element={<UncontrolledFormikForm/>} />
+          <Route path="/formik-uncontrolled" element={<UncontrolledFormikForm/>} />
+           <Route path="/hookForm" element={<HookForm />} />
+           <Route path="/hookForm-Uncontrolled" element={<HookUncontrolled />} />
+          
           <Route path="/" element={<Home />} />
+        
         </Routes>
       </BrowserRouter>
+     
      
 
 

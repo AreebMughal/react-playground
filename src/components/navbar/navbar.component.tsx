@@ -9,6 +9,9 @@ const navigation = [
   { name: 'Uncontrolled', href: '/uncontrolled-form', current: false },
   { name: 'formik-form', href: '/formik-form', current: false },
   { name: 'formik UnControlled', href: '/formik-uncontrolled', current: false },
+  { name: 'hook Form', href: '/hookForm', current: false },
+  { name: 'hook Form Uncontrolled', href: '/hookForm-Uncontrolled', current: false },
+  
 ]
 
 function classNames(...classes: any[]) {
