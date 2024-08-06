@@ -8,6 +8,8 @@ import UncontrolledFormikForm from './pages/formik-uncontrolled.page';
 import UnControlledForm from './pages/Uncontrolled-form.page';
 import HookForm from './pages/hookForm';
 import HookUncontrolled from "./pages/hookForm-Uncontrolled";
+import TanStack from './pages/tanstackForm';
+import TanStackUncontrolled from './pages/tanstack-Uncontrolled.page';
 function App() {
   return (
     <>
@@ -21,11 +23,13 @@ function App() {
           <Route path="/formik-uncontrolled" element={<UncontrolledFormikForm/>} />
            <Route path="/hookForm" element={<HookForm />} />
            <Route path="/hookForm-Uncontrolled" element={<HookUncontrolled />} />
-          
+           <Route path="/tanstackForm" element={<TanStack />} />
+           <Route path="/tanstack-Uncontrolled" element={<TanStackUncontrolled />} />
           <Route path="/" element={<Home />} />
         
         </Routes>
       </BrowserRouter>
+      
      
      
 

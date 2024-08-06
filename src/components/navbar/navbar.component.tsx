@@ -11,6 +11,8 @@ const navigation = [
   { name: 'formik UnControlled', href: '/formik-uncontrolled', current: false },
   { name: 'hook Form', href: '/hookForm', current: false },
   { name: 'hook Form Uncontrolled', href: '/hookForm-Uncontrolled', current: false },
+  { name: 'Tan Stack Form', href: '/tanstackForm', current: false },
+  { name: 'Tan Stack Uncontrolled', href: '/tanstack-Uncontrolled', current: false },
   
 ]
 
