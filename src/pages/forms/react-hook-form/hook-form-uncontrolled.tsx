@@ -2,12 +2,11 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import Multiselect from 'multiselect-react-dropdown';
 
-
-
 interface Option {
-    name: string;
-    id: number,
+  name: string;
+  id: number;
 }
+
 // Define your Yup schema
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -17,11 +16,17 @@ const validationSchema = Yup.object().shape({
     .required('Please enter a valid email address')
     .matches(/^\S+@\S+$/, 'Invalid email address'),
   gender: Yup.string().required('Please select your gender'),
-  options: Yup.array().of(Yup.string()).required('At least one option must be selected').min(1),
-  terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+  options: Yup.array()
+    .of(Yup.string())
+    .required('At least one option must be selected')
+    .min(1),
+  terms: Yup.boolean().oneOf(
+    [true],
+    'You must accept the terms and conditions',
+  ),
 });
 
-const HookUncontrolled: React.FC = () => {
+export default function HookFormUncontrolled() {
   const firstNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const maleGenderRef = useRef<HTMLInputElement>(null);
@@ -30,44 +35,50 @@ const HookUncontrolled: React.FC = () => {
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  
+
   useEffect(() => {
-    
     if (firstNameRef.current) {
-      firstNameRef.current.value = ''; 
+      firstNameRef.current.value = '';
     }
-    if (emailRef.current){
+    if (emailRef.current) {
       emailRef.current.value = '';
-    };
-    if (maleGenderRef.current){
+    }
+    if (maleGenderRef.current) {
       maleGenderRef.current.checked = false;
     }
-    if (femaleGenderRef.current){
+    if (femaleGenderRef.current) {
       femaleGenderRef.current.checked = false;
-    };
-    if (termsRef.current){
+    }
+    if (termsRef.current) {
       termsRef.current.checked = false;
     }
     setSelectedOptions([]);
   }, [errors]);
-  
+
   useEffect(() => {
     // Perform validation when the component mounts
     validateForm();
   }, []);
 
   const validateForm = async () => {
-    const selectedGender = maleGenderRef.current?.checked ? 'male' : (femaleGenderRef.current?.checked ? 'female' : '');
+    const selectedGender = maleGenderRef.current?.checked
+      ? 'male'
+      : femaleGenderRef.current?.checked
+        ? 'female'
+        : '';
 
     try {
-      await validationSchema.validate({
-        firstName: firstNameRef.current?.value,
-        email: emailRef.current?.value,
-        gender: selectedGender,
-        options: selectedOptions,
-        terms: termsRef.current?.checked,
-      }, { abortEarly: false });
-      console.log("Validation passed");
+      await validationSchema.validate(
+        {
+          firstName: firstNameRef.current?.value,
+          email: emailRef.current?.value,
+          gender: selectedGender,
+          options: selectedOptions,
+          terms: termsRef.current?.checked,
+        },
+        { abortEarly: false },
+      );
+      console.log('Validation passed');
       setErrors({});
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -85,12 +96,18 @@ const HookUncontrolled: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        validateForm();
-      }} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[30%]">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          validateForm();
+        }}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[30%]"
+      >
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="firstName"
+          >
             First Name
           </label>
           <input
@@ -99,10 +116,15 @@ const HookUncontrolled: React.FC = () => {
             type="text"
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-          {errors.firstName && <p className="text-red-500 text-xs italic">{errors.firstName}</p>}
+          {errors.firstName && (
+            <p className="text-red-500 text-xs italic">{errors.firstName}</p>
+          )}
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium" htmlFor="email">
+          <label
+            className="block text-gray-700 text-sm font-medium"
+            htmlFor="email"
+          >
             Email Address
           </label>
           <input
@@ -111,7 +133,9 @@ const HookUncontrolled: React.FC = () => {
             type="email"
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-          {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
+          {errors.email && (
+            <p className="text-red-500 text-xs italic">{errors.email}</p>
+          )}
         </div>
         <fieldset className="flex flex-col gap-2 mb-4">
           <legend className="sr-only">Gender</legend>
@@ -124,7 +148,10 @@ const HookUncontrolled: React.FC = () => {
               value="male"
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
             />
-            <label htmlFor="gender-male" className="ml-2 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="gender-male"
+              className="ml-2 text-sm font-medium text-gray-700"
+            >
               Male
             </label>
           </div>
@@ -137,11 +164,16 @@ const HookUncontrolled: React.FC = () => {
               value="female"
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
             />
-            <label htmlFor="gender-female" className="ml-2 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="gender-female"
+              className="ml-2 text-sm font-medium text-gray-700"
+            >
               Female
             </label>
           </div>
-          {errors.gender && <p className="text-red-500 text-xs italic">{errors.gender}</p>}
+          {errors.gender && (
+            <p className="text-red-500 text-xs italic">{errors.gender}</p>
+          )}
         </fieldset>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-medium mb-2">
@@ -155,12 +187,21 @@ const HookUncontrolled: React.FC = () => {
               { name: 'Option 4', id: 4 },
             ]}
             displayValue="name"
-            selectedValues={selectedOptions.map(option => ({ name: option, id: 1 }))}
-            onSelect={(selectedList: Option[]) => setSelectedOptions(selectedList.map(option => option.name))}
-            onRemove={(selectedList: Option[]) => setSelectedOptions(selectedList.map(option => option.name))}
+            selectedValues={selectedOptions.map((option) => ({
+              name: option,
+              id: 1,
+            }))}
+            onSelect={(selectedList: Option[]) =>
+              setSelectedOptions(selectedList.map((option) => option.name))
+            }
+            onRemove={(selectedList: Option[]) =>
+              setSelectedOptions(selectedList.map((option) => option.name))
+            }
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-          {errors.options && <p className="mt-2 text-sm text-red-600">{errors.options}</p>}
+          {errors.options && (
+            <p className="mt-2 text-sm text-red-600">{errors.options}</p>
+          )}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
@@ -172,7 +213,9 @@ const HookUncontrolled: React.FC = () => {
             />
             <span className="ml-2">I accept the terms and conditions</span>
           </label>
-          {errors.terms && <p className="text-red-500 text-xs italic">{errors.terms}</p>}
+          {errors.terms && (
+            <p className="text-red-500 text-xs italic">{errors.terms}</p>
+          )}
         </div>
         <div>
           <button
@@ -185,6 +228,4 @@ const HookUncontrolled: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export default HookUncontrolled;
+}

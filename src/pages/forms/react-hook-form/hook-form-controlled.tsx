@@ -1,6 +1,5 @@
-import React from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import Multiselect from 'multiselect-react-dropdown';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 interface FormValues {
   firstName: string;
@@ -9,10 +8,12 @@ interface FormValues {
   terms: boolean;
   options: string[];
 }
-interface Option{
-    name: string;
+
+interface Option {
+  name: string;
 }
-const HookForm: React.FC = () => {
+
+export default function HookFormControlled() {
   const {
     register,
     handleSubmit,
@@ -37,37 +38,58 @@ const HookForm: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[30%]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[30%]"
+      >
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="firstName"
+          >
             First Name
           </label>
           <input
             id="firstName"
             {...register('firstName', {
               required: 'Please enter your first name',
-              maxLength: { value: 15, message: 'Must be 15 characters or less' },
+              maxLength: {
+                value: 15,
+                message: 'Must be 15 characters or less',
+              },
             })}
             type="text"
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-          {errors.firstName && <p className="mt-2 text-sm text-red-600">{errors.firstName.message}</p>}
+          {errors.firstName && (
+            <p className="mt-2 text-sm text-red-600">
+              {errors.firstName.message}
+            </p>
+          )}
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium" htmlFor="email">
+          <label
+            className="block text-gray-700 text-sm font-medium"
+            htmlFor="email"
+          >
             Email Address
           </label>
           <input
             id="email"
             {...register('email', {
               required: 'Please enter a valid email address',
-              pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' },
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: 'Invalid email address',
+              },
             })}
             type="email"
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-          {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
+          )}
         </div>
 
         <fieldset className="flex flex-col gap-2 mb-4">
@@ -80,7 +102,10 @@ const HookForm: React.FC = () => {
               {...register('gender', { required: 'Please select your gender' })}
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
             />
-            <label htmlFor="gender-male" className="ml-2 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="gender-male"
+              className="ml-2 text-sm font-medium text-gray-700"
+            >
               Male
             </label>
           </div>
@@ -92,19 +117,26 @@ const HookForm: React.FC = () => {
               {...register('gender', { required: 'Please select your gender' })}
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
             />
-            <label htmlFor="gender-female" className="ml-2 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="gender-female"
+              className="ml-2 text-sm font-medium text-gray-700"
+            >
               Female
             </label>
           </div>
-          {errors.gender && <p className="mt-2 text-sm text-red-600">{errors.gender.message}</p>}
+          {errors.gender && (
+            <p className="mt-2 text-sm text-red-600">{errors.gender.message}</p>
+          )}
         </fieldset>
 
         <div className="mb-4">
-            
           <Controller
             name="options"
             control={control}
-            rules={{ validate: value => value.length > 0 || 'At least one option must be selected' }}
+            rules={{
+              validate: (value) =>
+                value.length > 0 || 'At least one option must be selected',
+            }}
             render={({ field }) => (
               <Multiselect
                 options={[
@@ -115,25 +147,41 @@ const HookForm: React.FC = () => {
                 ]}
                 displayValue="name"
                 selectedValues={field.value}
-                onSelect={(selectedList) => field.onChange(selectedList.map((option: Option) => option.name))}
-                onRemove={(selectedList) => field.onChange(selectedList.map((option: Option) => option.name))}
+                onSelect={(selectedList) =>
+                  field.onChange(
+                    selectedList.map((option: Option) => option.name),
+                  )
+                }
+                onRemove={(selectedList) =>
+                  field.onChange(
+                    selectedList.map((option: Option) => option.name),
+                  )
+                }
                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             )}
           />
-          {errors.options && <p className="mt-2 text-sm text-red-600">{errors.options.message}</p>}
+          {errors.options && (
+            <p className="mt-2 text-sm text-red-600">
+              {errors.options.message}
+            </p>
+          )}
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             <input
               type="checkbox"
-              {...register('terms', { required: 'You must accept the terms and conditions' })}
+              {...register('terms', {
+                required: 'You must accept the terms and conditions',
+              })}
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
             />
             <span className="ml-2">I accept the terms and conditions</span>
           </label>
-          {errors.terms && <p className="mt-2 text-sm text-red-600">{errors.terms.message}</p>}
+          {errors.terms && (
+            <p className="mt-2 text-sm text-red-600">{errors.terms.message}</p>
+          )}
         </div>
 
         <div>
@@ -147,6 +195,4 @@ const HookForm: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export default HookForm;
+}

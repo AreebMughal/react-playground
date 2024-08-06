@@ -1,41 +1,51 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ControlledForm from './pages/controlled-form.page';
 import Navbar from './components/navbar/navbar.component';
-import Home from './pages/home.page';
-import FormikForm from './pages/formik-form.page';
-import UncontrolledFormikForm from './pages/formik-uncontrolled.page';
-import UnControlledForm from './pages/Uncontrolled-form.page';
-import HookForm from './pages/hookForm';
-import HookUncontrolled from "./pages/hookForm-Uncontrolled";
-import TanStack from './pages/tanstackForm';
-import TanStackUncontrolled from './pages/tanstack-Uncontrolled.page';
-function App() {
+import ControlledForm from './pages/forms/controlled/controlled-form.page';
+import FormikControlledForm from './pages/forms/formik/formik-controlled-form.page';
+import FormikUncontrolledForm from './pages/forms/formik/formik-uncontrolled-form.page';
+import HookFormControlled from './pages/forms/react-hook-form/hook-form-controlled';
+import HookFormUncontrolled from './pages/forms/react-hook-form/hook-form-uncontrolled';
+import TanStackControlledForm from './pages/forms/tan-stack/tanstack-controlled-form';
+import TanStackUncontrolledForm from './pages/forms/tan-stack/tanstack-uncontrolled-form.page';
+import UncontrolledForm from './pages/forms/uncontrolled/uncontrolled-form.page';
+import Home from './pages/home/home.page';
+
+export default function App() {
   return (
     <>
       <BrowserRouter>
-      <Navbar />
+        <Navbar />
         <Routes>
           <Route path="/controlled-form" element={<ControlledForm />} />
-          <Route path="/Uncontrolled-form" element={<UnControlledForm />} />
-          <Route path="/formik-form" element={<FormikForm />} />
-          <Route path="/formik-uncontrolled" element={<UncontrolledFormikForm/>} />
-          <Route path="/formik-uncontrolled" element={<UncontrolledFormikForm/>} />
-           <Route path="/hookForm" element={<HookForm />} />
-           <Route path="/hookForm-Uncontrolled" element={<HookUncontrolled />} />
-           <Route path="/tanstackForm" element={<TanStack />} />
-           <Route path="/tanstack-Uncontrolled" element={<TanStackUncontrolled />} />
+          <Route path="/uncontrolled-form" element={<UncontrolledForm />} />
+          <Route
+            path="/formik-controlled-form"
+            element={<FormikControlledForm />}
+          />
+          <Route
+            path="/formik-uncontrolled-form"
+            element={<FormikUncontrolledForm />}
+          />
+          <Route
+            path="/react-hook-form-controlled"
+            element={<HookFormControlled />}
+          />
+          <Route
+            path="/react-hook-form-uncontrolled"
+            element={<HookFormUncontrolled />}
+          />
+          <Route
+            path="/tanstack-controlled-form"
+            element={<TanStackControlledForm />}
+          />
+          <Route
+            path="/tanstack-controlled-form"
+            element={<TanStackUncontrolledForm />}
+          />
           <Route path="/" element={<Home />} />
-        
         </Routes>
       </BrowserRouter>
-      
-     
-     
-
-
     </>
   );
 }
-
-export default App;

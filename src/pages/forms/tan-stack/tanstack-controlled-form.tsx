@@ -1,8 +1,7 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { useForm } from '@tanstack/react-form';
 import type { FieldApi } from '@tanstack/react-form';
+import { useForm } from '@tanstack/react-form';
 import Multiselect from 'multiselect-react-dropdown';
+import { createRoot } from 'react-dom/client';
 
 interface FormValues {
   firstName: string;
@@ -16,14 +15,16 @@ function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
   return (
     <>
       {field.state.meta.isTouched && field.state.meta.errors.length ? (
-        <p className="mt-2 text-sm text-red-600">{field.state.meta.errors.join(', ')}</p>
+        <p className="mt-2 text-sm text-red-600">
+          {field.state.meta.errors.join(', ')}
+        </p>
       ) : null}
       {field.state.meta.isValidating ? 'Validating...' : null}
     </>
   );
 }
 
-export default function TanStack() {
+export default function TanStackControlledForm() {
   const form = useForm<FormValues>({
     defaultValues: {
       firstName: '',
@@ -56,18 +57,23 @@ export default function TanStack() {
                 !value
                   ? 'A first name is required'
                   : value.length > 15
-                  ? 'Must be 15 characters or less'
-                  : undefined,
+                    ? 'Must be 15 characters or less'
+                    : undefined,
               onChangeAsyncDebounceMs: 500,
               onChangeAsync: async ({ value }) => {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
-                return value.includes('error') && 'No "error" allowed in first name';
+                return (
+                  value.includes('error') && 'No "error" allowed in first name'
+                );
               },
             }}
           >
             {(field) => (
               <>
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={field.name}>
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor={field.name}
+                >
                   First Name
                 </label>
                 <input
@@ -92,13 +98,16 @@ export default function TanStack() {
                 !value
                   ? 'Please enter a valid email address'
                   : !/^\S+@\S+$/.test(value)
-                  ? 'Invalid email address'
-                  : undefined,
+                    ? 'Invalid email address'
+                    : undefined,
             }}
           >
             {(field) => (
               <>
-                <label className="block text-gray-700 text-sm font-medium" htmlFor={field.name}>
+                <label
+                  className="block text-gray-700 text-sm font-medium"
+                  htmlFor={field.name}
+                >
                   Email Address
                 </label>
                 <input
@@ -121,7 +130,8 @@ export default function TanStack() {
             <form.Field
               name="gender"
               validators={{
-                onChange: ({ value }) => (!value ? 'Please select your gender' : undefined),
+                onChange: ({ value }) =>
+                  !value ? 'Please select your gender' : undefined,
               }}
             >
               {(field) => (
@@ -136,7 +146,10 @@ export default function TanStack() {
                     onChange={(e) => field.handleChange(e.target.value)}
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
-                  <label htmlFor="gender-male" className="ml-2 text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="gender-male"
+                    className="ml-2 text-sm font-medium text-gray-700"
+                  >
                     Male
                   </label>
                 </>
@@ -147,7 +160,8 @@ export default function TanStack() {
             <form.Field
               name="gender"
               validators={{
-                onChange: ({ value }) => (!value ? 'Please select your gender' : undefined),
+                onChange: ({ value }) =>
+                  !value ? 'Please select your gender' : undefined,
               }}
             >
               {(field) => (
@@ -162,7 +176,10 @@ export default function TanStack() {
                     onChange={(e) => field.handleChange(e.target.value)}
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
-                  <label htmlFor="gender-female" className="ml-2 text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="gender-female"
+                    className="ml-2 text-sm font-medium text-gray-700"
+                  >
                     Female
                   </label>
                   <FieldInfo field={field} />
@@ -177,12 +194,17 @@ export default function TanStack() {
             name="options"
             validators={{
               onChange: ({ value }) =>
-                !value || value.length === 0 ? 'At least one option must be selected' : undefined,
+                !value || value.length === 0
+                  ? 'At least one option must be selected'
+                  : undefined,
             }}
           >
             {(field) => (
               <>
-                <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor={field.name}>
+                <label
+                  className="block text-gray-700 text-sm font-medium mb-2"
+                  htmlFor={field.name}
+                >
                   Options
                 </label>
                 <Multiselect
@@ -193,9 +215,24 @@ export default function TanStack() {
                     { name: 'Option 4', id: 4 },
                   ]}
                   displayValue="name"
-                  selectedValues={field.state.value.map((option: string) => ({ name: option, id: 1 }))}
-                  onSelect={(selectedList) => field.handleChange(selectedList.map((option: { name: string; id: number }) => option.name))}
-                  onRemove={(selectedList) => field.handleChange(selectedList.map((option: { name: string; id: number }) => option.name))}
+                  selectedValues={field.state.value.map((option: string) => ({
+                    name: option,
+                    id: 1,
+                  }))}
+                  onSelect={(selectedList) =>
+                    field.handleChange(
+                      selectedList.map(
+                        (option: { name: string; id: number }) => option.name,
+                      ),
+                    )
+                  }
+                  onRemove={(selectedList) =>
+                    field.handleChange(
+                      selectedList.map(
+                        (option: { name: string; id: number }) => option.name,
+                      ),
+                    )
+                  }
                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
                 <FieldInfo field={field} />
@@ -208,8 +245,8 @@ export default function TanStack() {
           <form.Field
             name="terms"
             validators={{
-              onChange: ({ value }) => (!value ? 'You must accept the terms and conditions' : undefined),
-
+              onChange: ({ value }) =>
+                !value ? 'You must accept the terms and conditions' : undefined,
             }}
           >
             {(field) => (
@@ -224,7 +261,9 @@ export default function TanStack() {
                     onChange={(e) => field.handleChange(e.target.checked)}
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
-                  <span className="ml-2">I accept the terms and conditions</span>
+                  <span className="ml-2">
+                    I accept the terms and conditions
+                  </span>
                 </label>
                 <FieldInfo field={field} />
               </>
@@ -247,6 +286,3 @@ export default function TanStack() {
     </div>
   );
 }
-
-const rootElement = document.getElementById('root')!;
-createRoot(rootElement).render(<TanStack />);

@@ -1,26 +1,42 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import { INavigation } from '../../interfaces/navigation.interface';
+import { ReactElement } from 'react';
 
-const navigation = [
-
+const navigation: INavigation[] = [
   { name: 'Home', href: '/', current: true },
   { name: 'Controlled', href: '/controlled-form', current: false },
   { name: 'Uncontrolled', href: '/uncontrolled-form', current: false },
   { name: 'formik-form', href: '/formik-form', current: false },
   { name: 'formik UnControlled', href: '/formik-uncontrolled', current: false },
   { name: 'hook Form', href: '/hookForm', current: false },
-  { name: 'hook Form Uncontrolled', href: '/hookForm-Uncontrolled', current: false },
+  {
+    name: 'hook Form Uncontrolled',
+    href: '/hookForm-Uncontrolled',
+    current: false,
+  },
   { name: 'Tan Stack Form', href: '/tanstackForm', current: false },
-  { name: 'Tan Stack Uncontrolled', href: '/tanstack-Uncontrolled', current: false },
-  
-]
+  {
+    name: 'Tan Stack Uncontrolled',
+    href: '/tanstack-Uncontrolled',
+    current: false,
+  },
+];
 
 function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
-export default function Example() {
+export default function Example(): ReactElement {
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -30,8 +46,14 @@ export default function Example() {
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
-              <Bars3Icon aria-hidden="true" className="block h-6 w-6 group-data-[open]:hidden" />
-              <XMarkIcon aria-hidden="true" className="hidden h-6 w-6 group-data-[open]:block" />
+              <Bars3Icon
+                aria-hidden="true"
+                className="block h-6 w-6 group-data-[open]:hidden"
+              />
+              <XMarkIcon
+                aria-hidden="true"
+                className="hidden h-6 w-6 group-data-[open]:block"
+              />
             </DisclosureButton>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -44,13 +66,15 @@ export default function Example() {
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                {navigation.map((item: any) => (
+                {navigation.map((item) => (
                   <Link
                     key={item.name}
                     to={item.href}
                     aria-current={item.current ? 'page' : undefined}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      item.current
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
                   >
@@ -88,17 +112,26 @@ export default function Example() {
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
               >
                 <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                  >
                     Your Profile
                   </a>
                 </MenuItem>
                 <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                  >
                     Settings
                   </a>
                 </MenuItem>
                 <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                  >
                     Sign out
                   </a>
                 </MenuItem>
@@ -117,7 +150,9 @@ export default function Example() {
               href={item.href}
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
-                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                item.current
+                  ? 'bg-gray-900 text-white'
+                  : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                 'block rounded-md px-3 py-2 text-base font-medium',
               )}
             >
@@ -127,5 +162,5 @@ export default function Example() {
         </div>
       </DisclosurePanel>
     </Disclosure>
-  )
+  );
 }

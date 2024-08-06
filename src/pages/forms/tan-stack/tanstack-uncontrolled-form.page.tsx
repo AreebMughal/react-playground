@@ -1,7 +1,7 @@
+import { FieldApi, useForm } from '@tanstack/react-form';
+import Multiselect from 'multiselect-react-dropdown';
 import React, { useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { useForm, FieldApi, FormApi } from '@tanstack/react-form';
-import Multiselect from 'multiselect-react-dropdown';
 
 interface FormValues {
   firstName: string;
@@ -12,14 +12,16 @@ interface FormValues {
 }
 
 interface SelectedItem {
-    name: string;
+  name: string;
 }
 
 function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
   return (
     <>
       {field.state.meta.isTouched && field.state.meta.errors.length ? (
-        <p className="mt-2 text-sm text-red-600">{field.state.meta.errors.join(', ')}</p>
+        <p className="mt-2 text-sm text-red-600">
+          {field.state.meta.errors.join(', ')}
+        </p>
       ) : null}
       {field.state.meta.isValidating ? 'Validating...' : null}
     </>
@@ -27,17 +29,17 @@ function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
 }
 
 const handleSubmitProgrammatically = (value: FormValues) => {
-    console.log('Form submitted programmatically:', value);
-    // If you need to perform actions based on the formApi, you can do so here
+  console.log('Form submitted programmatically:', value);
+  // If you need to perform actions based on the formApi, you can do so here
 };
 
-export default function TanStackUncontrolled() {
-    const firstNameRef = useRef<HTMLInputElement | null>(null);
-    const emailRef = useRef<HTMLInputElement | null>(null);
-    const genderMaleRef = useRef<HTMLInputElement | null>(null);
-    const genderFemaleRef = useRef<HTMLInputElement | null>(null);
-    const optionsRef = useRef<Multiselect | null>(null);
-    const termsRef = useRef<HTMLInputElement | null>(null);
+export default function TanStackUncontrolledForm() {
+  const firstNameRef = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const genderMaleRef = useRef<HTMLInputElement | null>(null);
+  const genderFemaleRef = useRef<HTMLInputElement | null>(null);
+  const optionsRef = useRef<Multiselect | null>(null);
+  const termsRef = useRef<HTMLInputElement | null>(null);
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -57,23 +59,34 @@ export default function TanStackUncontrolled() {
     e.stopPropagation();
 
     const formValues: FormValues = {
-        firstName: firstNameRef.current?.value ?? '',
-        email: emailRef.current?.value ?? '',
-        gender: genderMaleRef.current?.checked ? 'male' : genderFemaleRef.current?.checked ? 'female' : '',
-        options: optionsRef.current?.getSelectedItems().map((item: SelectedItem) => item.name) ?? [],
-        terms: termsRef.current?.checked ?? false,
+      firstName: firstNameRef.current?.value ?? '',
+      email: emailRef.current?.value ?? '',
+      gender: genderMaleRef.current?.checked
+        ? 'male'
+        : genderFemaleRef.current?.checked
+          ? 'female'
+          : '',
+      options:
+        optionsRef.current
+          ?.getSelectedItems()
+          .map((item: SelectedItem) => item.name) ?? [],
+      terms: termsRef.current?.checked ?? false,
     };
 
     form.handleSubmit();
   };
 
   return (
-
-<div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[30%]">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[30%]"
+      >
         <div className="mb-4">
-            
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="firstName"
+          >
             First Name
           </label>
           <input
@@ -85,7 +98,10 @@ export default function TanStackUncontrolled() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium" htmlFor="email">
+          <label
+            className="block text-gray-700 text-sm font-medium"
+            htmlFor="email"
+          >
             Email Address
           </label>
           <input
@@ -108,7 +124,10 @@ export default function TanStackUncontrolled() {
               ref={genderMaleRef}
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
             />
-            <label htmlFor="gender-male" className="ml-2 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="gender-male"
+              className="ml-2 text-sm font-medium text-gray-700"
+            >
               Male
             </label>
           </div>
@@ -121,14 +140,20 @@ export default function TanStackUncontrolled() {
               ref={genderFemaleRef}
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
             />
-            <label htmlFor="gender-female" className="ml-2 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="gender-female"
+              className="ml-2 text-sm font-medium text-gray-700"
+            >
               Female
             </label>
           </div>
         </fieldset>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="options">
+          <label
+            className="block text-gray-700 text-sm font-medium mb-2"
+            htmlFor="options"
+          >
             Options
           </label>
           <Multiselect
@@ -172,6 +197,3 @@ export default function TanStackUncontrolled() {
     </div>
   );
 }
-
-const rootElement = document.getElementById('root')!;
-createRoot(rootElement).render(<TanStackUncontrolled />);

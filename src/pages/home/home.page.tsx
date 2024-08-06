@@ -1,10 +1,9 @@
-import Button from '../components/buttons/button.component';
-function Home() {
+import Button from '../../components/buttons/button.component';
+
+export default function Home() {
   return (
     <div className="App">
       <header className="App-header">
-
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -21,5 +20,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

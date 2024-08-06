@@ -1,8 +1,6 @@
-import React from 'react';
-import Button from '../buttons/button.component';
 import Multiselect from 'multiselect-react-dropdown';
 
-export default function Form() {
+export default function Form(): React.ReactElement {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[30%]">
@@ -22,10 +20,13 @@ export default function Form() {
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
             Email
           </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
             type="email"
             placeholder="Enter Your Email"
@@ -109,4 +110,3 @@ export default function Form() {
     </div>
   );
 }
-
