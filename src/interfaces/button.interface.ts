@@ -1,4 +1,5 @@
 export interface IButtonProps {
-  title: string;
+  text: string;
   className?: string;
+  onClick?: () => void | null;
 }
