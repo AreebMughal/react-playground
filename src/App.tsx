@@ -11,7 +11,7 @@ import TanStackUncontrolledForm from './pages/forms/tan-stack/tanstack-uncontrol
 import UncontrolledForm from './pages/forms/uncontrolled/uncontrolled-form.page';
 import Home from './pages/home/home.page';
 import PageNotFound from './pages/404/404.page';
-import UseReducerForm from './pages/state-management/apply-use-reducer.page';
+import UseReducerForm from './pages/state-management/use-reducer/apply-use-reducer.page';
 
 export default function App() {
   return (
