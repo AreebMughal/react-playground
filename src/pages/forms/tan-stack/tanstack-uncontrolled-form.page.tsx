@@ -1,7 +1,6 @@
 import { FieldApi, useForm } from '@tanstack/react-form';
 import Multiselect from 'multiselect-react-dropdown';
 import React, { useRef } from 'react';
-import { createRoot } from 'react-dom/client';
 
 interface FormValues {
   firstName: string;
@@ -30,7 +29,17 @@ function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
 
 const handleSubmitProgrammatically = (value: FormValues) => {
   console.log('Form submitted programmatically:', value);
-  // If you need to perform actions based on the formApi, you can do so here
+};
+
+const validate = {
+  firstName: (value: string) => (!value ? 'First Name is required' : null),
+  email: (value: string) => {
+    if (!value) return 'Email is required';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return !emailRegex.test(value) ? 'Email is invalid' : null;
+  },
+  gender: (value: string) => (!value ? 'Gender is required' : null),
+  terms: (value: boolean) => (!value ? 'You must accept the terms' : null),
 };
 
 export default function TanStackUncontrolledForm() {
@@ -64,8 +73,8 @@ export default function TanStackUncontrolledForm() {
       gender: genderMaleRef.current?.checked
         ? 'male'
         : genderFemaleRef.current?.checked
-          ? 'female'
-          : '',
+        ? 'female'
+        : '',
       options:
         optionsRef.current
           ?.getSelectedItems()
@@ -73,6 +82,23 @@ export default function TanStackUncontrolledForm() {
       terms: termsRef.current?.checked ?? false,
     };
 
+    const errors = {
+      firstName: validate.firstName(formValues.firstName),
+      email: validate.email(formValues.email),
+      gender: validate.gender(formValues.gender),
+      terms: validate.terms(formValues.terms),
+    };
+
+    if (Object.values(errors).some((error) => error)) {
+      console.log('Validation errors:', errors);
+      return;
+    }
+
+    form.setFieldValue('firstName', formValues.firstName);
+    form.setFieldValue('email', formValues.email);
+    form.setFieldValue('gender', formValues.gender);
+    form.setFieldValue('options', formValues.options);
+    form.setFieldValue('terms', formValues.terms);
     form.handleSubmit();
   };
 
@@ -95,6 +121,9 @@ export default function TanStackUncontrolledForm() {
             ref={firstNameRef}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
+          <form.Field name="firstName">
+            {field => <FieldInfo field={field} />}
+          </form.Field>
         </div>
 
         <div className="mb-4">
@@ -111,6 +140,9 @@ export default function TanStackUncontrolledForm() {
             ref={emailRef}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
+          <form.Field name="email">
+            {field => <FieldInfo field={field} />}
+          </form.Field>
         </div>
 
         <fieldset className="flex flex-col gap-2 mb-4">
@@ -147,6 +179,9 @@ export default function TanStackUncontrolledForm() {
               Female
             </label>
           </div>
+          <form.Field name="gender">
+            {field => <FieldInfo field={field} />}
+          </form.Field>
         </fieldset>
 
         <div className="mb-4">
@@ -180,6 +215,9 @@ export default function TanStackUncontrolledForm() {
             />
             <span className="ml-2">I accept the terms and conditions</span>
           </label>
+          <form.Field name="terms">
+            {field => <FieldInfo field={field} />}
+          </form.Field>
         </div>
 
         <form.Subscribe selector={(state) => state}>
