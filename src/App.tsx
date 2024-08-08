@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar/navbar.component';
@@ -12,11 +13,14 @@ import UncontrolledForm from './pages/forms/uncontrolled/uncontrolled-form.page'
 import Home from './pages/home/home.page';
 import PageNotFound from './pages/404/404.page';
 import UseReducerForm from './pages/state-management/use-reducer/apply-use-reducer.page';
+import { CounterProvider } from './pages/state-management/context-api/context/context';
+import ComponentsDisplay from './pages/state-management/components-display/components-display';
 
 export default function App() {
   return (
+    <CounterProvider>
     <section className="">
-      <BrowserRouter>
+       <BrowserRouter>
         <Navbar />
         <div className="!h-[89vh]">
           <Routes>
@@ -47,14 +51,16 @@ export default function App() {
               element={<TanStackUncontrolledForm />}
             />
             <Route path="/" element={<Home />} />
-            <Route path="/state-management">
+            <Route path="/state-management/context-api" element={ <ComponentsDisplay /> }>
               <Route path="use-reducer" element={<UseReducerForm />} />
             </Route>
-            {/* Place it in the end. If route not defined then load this. */}
-            <Route path="*" element={<PageNotFound />} />
+            Place it in the end. If route not defined then load this.
+             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
-      </BrowserRouter>
+      </BrowserRouter> 
+         
     </section>
+    </CounterProvider>
   );
 }
