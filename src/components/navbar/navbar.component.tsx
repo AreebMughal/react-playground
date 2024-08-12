@@ -32,6 +32,7 @@ const navigation = [
     current: false,
     submenu: [
       { name: 'useReducer', href: "/state-management/use-reducer" },
+      { name: 'Reducer Mangement', href: "/state-management/redux/redux-management" },
       { name: 'Context API', href: "/state-management/context-api" },
     ],
   },
