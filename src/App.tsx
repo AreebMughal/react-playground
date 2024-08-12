@@ -1,3 +1,4 @@
+import { Provider } from 'react-redux'; 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar/navbar.component';
@@ -12,49 +13,56 @@ import UncontrolledForm from './pages/forms/uncontrolled/uncontrolled-form.page'
 import Home from './pages/home/home.page';
 import PageNotFound from './pages/404/404.page';
 import UseReducerForm from './pages/state-management/use-reducer/apply-use-reducer.page';
+import Reduxmanagement from './pages/state-management/redux/redux-management/redux-management';
+
+import store from './pages/state-management/redux/redux-store/redux-store';
 
 export default function App() {
   return (
-    <section className="">
-      <BrowserRouter>
-        <Navbar />
-        <div className="!h-[89vh]">
-          <Routes>
-            <Route path="/controlled-form" element={<ControlledForm />} />
-            <Route path="/uncontrolled-form" element={<UncontrolledForm />} />
-            <Route
-              path="/formik-controlled-form"
-              element={<FormikControlledForm />}
-            />
-            <Route
-              path="/formik-uncontrolled-form"
-              element={<FormikUncontrolledForm />}
-            />
-            <Route
-              path="/react-hook-form-controlled"
-              element={<HookFormControlled />}
-            />
-            <Route
-              path="/react-hook-form-uncontrolled"
-              element={<HookFormUncontrolled />}
-            />
-            <Route
-              path="/tanstack-controlled-form"
-              element={<TanStackControlledForm />}
-            />
-            <Route
-              path="/tanstack-controlled-form"
-              element={<TanStackUncontrolledForm />}
-            />
-            <Route path="/" element={<Home />} />
-            <Route path="/state-management">
-              <Route path="use-reducer" element={<UseReducerForm />} />
-            </Route>
-            {/* Place it in the end. If route not defined then load this. */}
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </section>
+    <Provider store={store}> 
+      <section className="">
+        <BrowserRouter>
+          <Navbar />
+          <div className="!h-[89vh]">
+            <Routes>
+              <Route path="/controlled-form" element={<ControlledForm />} />
+              <Route path="/uncontrolled-form" element={<UncontrolledForm />} />
+              <Route
+                path="/formik-controlled-form"
+                element={<FormikControlledForm />}
+              />
+              <Route
+                path="/formik-uncontrolled-form"
+                element={<FormikUncontrolledForm />}
+              />
+              <Route
+                path="/react-hook-form-controlled"
+                element={<HookFormControlled />}
+              />
+              <Route
+                path="/react-hook-form-uncontrolled"
+                element={<HookFormUncontrolled />}
+              />
+              <Route
+                path="/tanstack-controlled-form"
+                element={<TanStackControlledForm />}
+              />
+              <Route
+                path="/tanstack-controlled-form"
+                element={<TanStackUncontrolledForm />}
+              />
+              <Route path="/" element={<Home />} />
+              <Route path="/state-management">
+                <Route path="use-reducer" element={<UseReducerForm />} />
+                <Route path="redux/redux-management" element={<Reduxmanagement />} />
+                
+              </Route>
+              {/* Place it in the end. If route not defined then load this. */}
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </section>
+    </Provider>
   );
 }
